@@ -1,16 +1,16 @@
-from app import db
+from .. import db
 from datetime import datetime
 
 class Pessoa(db.Model):
     __tablename__ = "pessoa"
 
-    id = db.Column(db.Interger, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
     documento = db.Column(db.String(20), nullable=False, unique=True)
     tipo = db.Column(db.String(20), nullable=False) # visitante ou prestador
 
     # Chave Estrangeira
-    setor_id = db.Column(db.Interger, db.Foreignkey("setores.id"), nullable=False)
+    setor_id = db.Column(db.Integer, db.ForeignKey("setores.id"), nullable=False)
 
     # Relacionamento
     setor = db.relationship("Setor", backref="pessoa")

@@ -1,9 +1,9 @@
-from app import db
+from .. import db
 from datetime import datetime
 
 class Setor(db.Model):
     __tablename__ = "setores"
-    id = db.Column(db.Interger, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False, unique=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 

@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from dotenv import load_dotenv
+
 import os
 
 db = SQLAlchemy()
@@ -16,6 +17,10 @@ def create_app():
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+    # Registro de rota
+    from .routes.registro_routes import registro_bp
+    app.register_blueprint(registro_bp)
 
     db.init_app(app)
     login_manager.init_app(app)
