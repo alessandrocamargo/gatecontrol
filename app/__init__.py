@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import os
 
 db = SQLAlchemy()
-login_manager = LoginManager()
+#login_manager = LoginManager()
 migrate = Migrate()
 
 def create_app():
@@ -34,7 +34,7 @@ def create_app():
 
 
     db.init_app(app)
-    login_manager.init_app(app)
+    #login_manager.init_app(app)
     migrate.init_app(app, db)
 
     return app

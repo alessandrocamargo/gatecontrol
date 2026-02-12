@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from app import db
 from app.models.veiculo import Veiculo
 
@@ -103,3 +103,11 @@ def deletar_veiculo(id):
     db.session.commit()
 
     return jsonify({"mensagem": "Veículo deletado com sucesso"}), 200
+
+
+# =========================
+# FORMULARIO VEICULO
+# =========================
+@veiculo_bp.route("/veiculo/form", methods=["GET"])
+def form_veiculo():
+    return render_template("veiculoForm.html")

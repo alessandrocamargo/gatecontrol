@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from app import db
 from app.models.setor import Setor
 
@@ -47,3 +47,11 @@ def listar_setores():
         })
 
     return jsonify(resultado), 200
+
+
+# =========================
+# Formulário HTML
+# =========================
+@setor_bp.route("/setor/form", methods=["GET"])
+def form_setor():
+    return render_template("setorForm.html")

@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from app import db
 from app.models.pessoa import Pessoa
 
@@ -36,11 +36,7 @@ def criar_pessoa():
     db.session.add(nova_pessoa)
     db.session.commit()
 
-    return jsonify({
-        "id": nova_pessoa.id,
-        "nome": nova_pessoa.nome,
-        "tipo": nova_pessoa.tipo
-    }), 201
+    return jsonify({"mensagem": "Pessoa cadastrada com sucesso"}), 201
 
 
 # =========================
@@ -62,3 +58,12 @@ def listar_pessoas():
         })
 
     return jsonify(resultado), 200
+
+
+
+# =========================
+# FORMULARIO PESSOA
+# =========================
+@pessoa_bp.route("/pessoa/form", methods=["GET"])
+def form_pessoa():
+    return render_template("pessoaForm.html")
