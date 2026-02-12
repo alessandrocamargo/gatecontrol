@@ -1,8 +1,8 @@
-"""init clean
+"""esturtura inicial corrigida
 
-Revision ID: e2fc480c9b8c
+Revision ID: 1b63d9e1a90b
 Revises: 
-Create Date: 2026-02-11 13:18:39.739964
+Create Date: 2026-02-11 21:06:58.898381
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e2fc480c9b8c'
+revision = '1b63d9e1a90b'
 down_revision = None
 branch_labels = None
 depends_on = None

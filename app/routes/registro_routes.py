@@ -41,13 +41,12 @@ def registrar_saida(id):
     if registro.data_saida:
         return jsonify({"erro": "Registro já finalizado"}), 400
 
-    dados = request.get_json()
+    dados = request.get_json() or {}
 
-    # Se for veículo, validar KM
     if registro.veiculo:
         km_saida = dados.get("km_saida")
 
-        if not km_saida:
+        if km_saida is None:
             return jsonify({"erro": "É necessário informar KM na saída"}), 400
 
         if km_saida < registro.km_entrada:
@@ -60,4 +59,35 @@ def registrar_saida(id):
 
     db.session.commit()
 
+    print("VEICULO DO REGISTRO:", registro.veiculo)
+    print("VEICULO ID:", registro.veiculo_id)
+
+
     return jsonify({"mensagem": "Saída registrada com sucesso"}), 200
+
+
+@registro_bp.route("/registros", methods=["GET"])
+def listar_registros():
+    status = request.args.get("status")
+
+    if status == "aberto":
+        registros = RegistroEntrada.query.filter_by(data_saida=None).all()
+    elif status == "fechado":
+        registros = RegistroEntrada.query.filter(RegistroEntrada.data_saida.isnot(None)).all()
+    else:
+        registros = RegistroEntrada.query.all()
+
+    resultado = []
+
+    for r in registros:
+        resultado.append({
+            "id": r.id,
+            "pessoa": r.pessoa.nome if r.pessoa else None,
+            "veiculo": r.veiculo.placa if r.veiculo else None,
+            "km_entrada": r.km_entrada,
+            "km_saida": r.km_saida,
+            "data_entrada": r.data_entrada,
+            "data_saida": r.data_saida
+        })
+
+    return jsonify(resultado), 200
