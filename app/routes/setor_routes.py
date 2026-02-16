@@ -1,9 +1,13 @@
 from flask import Blueprint, request, jsonify, render_template
-from app import db
+from .. import db
 from app.models.setor import Setor
 
 setor_bp = Blueprint("setor", __name__)
 
+@login_required
+@setor_bp.route("/setor/form")
+def form_setor():
+    return render_template("setor_form.html")
 
 # =========================
 # Criar Setor
@@ -55,3 +59,11 @@ def listar_setores():
 @setor_bp.route("/setor/form", methods=["GET"])
 def form_setor():
     return render_template("setorForm.html")
+
+# =========================
+# PROTETOR DE ROTA
+# =========================
+from flask import login_required
+
+
+

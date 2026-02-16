@@ -71,3 +71,26 @@ body {
             color: red;
             margin-top: 10px;
         }
+        .flash {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: white;
+            font-weight: 500;
+        }
+
+        .flash-success {
+            background-color: #28a745;
+        }
+
+        .flash-error {
+            background-color: #dc3545;
+        }
+
+        .flash-info {
+            background-color: #6c757d;
+        }
+        
+        .flash {
+            transition: opacity 0.3s ease;
+        }

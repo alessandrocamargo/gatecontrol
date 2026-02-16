@@ -1,0 +1,19 @@
+{% extends "base.html"%}
+{% block title %}GateControl - Home{% endblock%}
+{% block content %}
+    <h2>Bem-vindo, {{ user.username }} 👋</h2>
+
+    <p>Perfil de acesso: <strong>{{ user.role }}</strong></p>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <p style="color: {% if category == 'success' %}green{% else %}red{% endif %};">
+                    {{ message }}
+                </p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <hr>
+
+    <a href="{{ url_for('auth.logout') }}">Sair</a>
+{% endblock %}
