@@ -8,7 +8,7 @@ class Pessoa(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
     documento = db.Column(db.String(20), nullable=False, unique=True)
-    tipo = db.Column(db.String(20), nullable=False) # visitante ou prestador
+    tipo = db.Column(db.String(20), nullable=False)
 
     @validates("tipo")
     def validar_tipo(self, key, tipo):
@@ -16,11 +16,9 @@ class Pessoa(db.Model):
             raise ValueError("Funcionários não podem ser cadastrados na portaria.")
         return tipo
 
-    # Chave Estrangeira
     setor_id = db.Column(db.Integer, db.ForeignKey("setores.id"), nullable=False)
 
-    # Relacionamento
-    setor = db.relationship("Setor", backref="pessoa")
+    setor = db.relationship("Setor", backref="pessoas")
 
     def __repr__(self):
         return f"<Pessoa {self.nome} ({self.tipo})>"

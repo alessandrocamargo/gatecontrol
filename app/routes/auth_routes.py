@@ -2,6 +2,7 @@ from flask import Blueprint,render_template, request, redirect, url_for, flash, 
 from flask_login import login_user, logout_user, login_required
 from app.models.user import User
 from app.extensions import db
+from app.utils.decorators import admin_required
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -31,6 +32,7 @@ def logout():
     return redirect(url_for("auth.login"))
 
 @auth_bp.route("/register", methods=["POST"])
+@admin_required
 def register():
     data = request.get_json() or {}
 

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Cadastrar Pessoa</h5>
+    </div>
+
+    <div class="card-body">
+        <form method="POST">
+
+            <div class="mb-3">
+                <label class="form-label">Nome</label>
+                <input type="text" name="nome" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Documento</label>
+                <input type="text" name="documento" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Tipo</label>
+                <select name="tipo" class="form-select" required>
+                    <option value="">Selecione</option>
+                    <option value="visitante">Visitante</option>
+                    <option value="prestador">Prestador</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Setor</label>
+                <select name="setor_id" class="form-select" required>
+                    <option value="">Selecione</option>
+                    {% for setor in setores %}
+                        <option value="{{ setor.id }}">{{ setor.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('pessoa.listar_pessoas') }}" class="btn btn-secondary">
+                    Voltar
+                </a>
+
+                <button type="submit" class="btn btn-success">
+                    Salvar
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

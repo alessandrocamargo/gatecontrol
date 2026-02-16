@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>Veículos Cadastrados</h4>
+    <a href="{{ url_for('veiculo.criar_veiculo') }}" class="btn btn-primary">
+        + Novo Veículo
+    </a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        {% if veiculos %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Placa</th>
+                    <th>Modelo</th>
+                    <th>Setor</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for veiculo in veiculos %}
+                <tr>
+                    <td>{{ veiculo.id }}</td>
+                    <td>{{ veiculo.placa }}</td>
+                    <td>{{ veiculo.modelo }}</td>
+                    <td>{{ veiculo.setor.nome }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p>Nenhum veículo cadastrado.</p>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

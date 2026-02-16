@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>Pessoas Cadastradas</h4>
+    <a href="{{ url_for('pessoa.criar_pessoa') }}" class="btn btn-primary">
+        + Nova Pessoa
+    </a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        {% if pessoas %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Documento</th>
+                    <th>Tipo</th>
+                    <th>Setor</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pessoa in pessoas %}
+                <tr>
+                    <td>{{ pessoa.id }}</td>
+                    <td>{{ pessoa.nome }}</td>
+                    <td>{{ pessoa.documento }}</td>
+                    <td>{{ pessoa.tipo }}</td>
+                    <td>{{ pessoa.setor.nome }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p>Nenhuma pessoa cadastrada.</p>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

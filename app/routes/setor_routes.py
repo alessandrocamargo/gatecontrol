@@ -1,69 +1,61 @@
-from flask import Blueprint, request, jsonify, render_template
-from .. import db
+from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_login import login_required
+from app.extensions import db
 from app.models.setor import Setor
+from app.utils.decorators import admin_required
 
-setor_bp = Blueprint("setor", __name__)
+setor_bp = Blueprint("setor", __name__, url_prefix="/setores")
 
+
+# ==========================
+# LISTAR SETORES
+# ==========================
+@setor_bp.route("/")
 @login_required
-@setor_bp.route("/setor/form")
-def form_setor():
-    return render_template("setor_form.html")
-
-# =========================
-# Criar Setor
-# =========================
-@setor_bp.route("/setor", methods=["POST"])
-def criar_setor():
-    dados = request.get_json() or {}
-
-    nome = dados.get("nome")
-
-    if not nome:
-        return jsonify({"erro": "Nome do setor é obrigatório"}), 400
-
-    if Setor.query.filter_by(nome=nome).first():
-        return jsonify({"erro": "Setor já cadastrado"}), 400
-
-    novo_setor = Setor(nome=nome)
-
-    db.session.add(novo_setor)
-    db.session.commit()
-
-    return jsonify({
-        "id": novo_setor.id,
-        "nome": novo_setor.nome
-    }), 201
-
-
-# =========================
-# Listar Setores
-# =========================
-@setor_bp.route("/setor", methods=["GET"])
 def listar_setores():
-    setores = Setor.query.all()
-
-    resultado = []
-
-    for s in setores:
-        resultado.append({
-            "id": s.id,
-            "nome": s.nome
-        })
-
-    return jsonify(resultado), 200
+    setores = Setor.query.order_by(Setor.id.desc()).all()
+    return render_template("setor_list.html", setores=setores)
 
 
-# =========================
-# Formulário HTML
-# =========================
-@setor_bp.route("/setor/form", methods=["GET"])
-def form_setor():
+# ==========================
+# CRIAR SETOR
+# ==========================
+@setor_bp.route("/criar", methods=["GET", "POST"])
+@admin_required
+def criar_setor():
+    if request.method == "POST":
+        nome = request.form.get("nome")
+
+        if not nome:
+            flash("O nome do setor é obrigatório.", "error")
+            return redirect(url_for("setor.criar_setor"))
+
+        setor_existente = Setor.query.filter_by(nome=nome).first()
+
+        if setor_existente:
+            flash("Já existe um setor com esse nome.", "error")
+            return redirect(url_for("setor.criar_setor"))
+
+        novo_setor = Setor(nome=nome)
+        db.session.add(novo_setor)
+        db.session.commit()
+
+        flash("Setor cadastrado com sucesso!", "success")
+        return redirect(url_for("setor.listar_setores"))
+
     return render_template("setorForm.html")
 
-# =========================
-# PROTETOR DE ROTA
-# =========================
-from flask import login_required
 
+# ==========================
+# EXCLUIR SETOR
+# ==========================
+@setor_bp.route("/excluir/<int:id>")
+@admin_required
+def excluir_setor(id):
+    setor = Setor.query.get_or_404(id)
 
+    db.session.delete(setor)
+    db.session.commit()
 
+    flash("Setor excluído com sucesso!", "success")
+    return redirect(url_for("setor.listar_setores"))
