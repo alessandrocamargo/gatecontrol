@@ -229,7 +229,7 @@ Este projeto não é apenas um CRUD:
 ## 👨‍💻 Autor
 
 **Alessandro André Sanches Gonzaga de Camargo**\
-Desenvolvedor Web Fullstack (em formação)
+Desenvolvedor Web Fullstack 
 
 🔗 GitHub: https://github.com/alessandrocamargo
 
@@ -238,4 +238,5 @@ Desenvolvedor Web Fullstack (em formação)
 ## 📄 Documentação Completa
 
 Consulte também a documentação técnica completa em PDF incluída no
-repositório: `documentacao_sistema_portaria.pdf`
+[GateControl Documentation](docs/gatecontrol_documentacao_v2.pdf)
+
