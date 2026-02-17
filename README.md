@@ -231,7 +231,7 @@ Este projeto não é apenas um CRUD:
 **Alessandro André Sanches Gonzaga de Camargo**\
 Desenvolvedor Web Fullstack (em formação)
 
-🔗 GitHub: https://github.com/sancamargosan
+🔗 GitHub: https://github.com/alessandrocamargo
 
 ------------------------------------------------------------------------
 
