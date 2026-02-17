@@ -43,7 +43,7 @@ def criar_setor():
         flash("Setor cadastrado com sucesso!", "success")
         return redirect(url_for("setor.listar_setores"))
 
-    return render_template("setorForm.html")
+    return render_template("setor_form.html")
 
 
 # ==========================

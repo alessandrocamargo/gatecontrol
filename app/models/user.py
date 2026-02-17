@@ -1,17 +1,36 @@
-from app import db
+from datetime import datetime
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-class User(UserMixin,db.Model):
+from app.extensions import db
+
+
+class User(UserMixin, db.Model):
     __tablename__ = "usuarios"
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    password_hash = db.Column(db.String(255), nullable=False)
-    role = db.Column(db.String(20), nullable=False) #admin ou operador
 
-    def set_password(self, password):
+    # Dados do usuário
+    nome = db.Column(db.String(120), nullable=False)
+    username = db.Column(db.String(80), unique=True, nullable=False, index=True)
+
+    # Permissão do sistema
+    role = db.Column(db.String(20), nullable=False, default="operador")
+    # valores: admin | cadastro | operador
+
+    ativo = db.Column(db.Boolean, nullable=False, default=True)
+
+    # Segurança
+    password_hash = db.Column(db.String(255), nullable=False)
+
+    # Auditoria
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    def set_password(self, password: str):
         self.password_hash = generate_password_hash(password)
 
-    def check_password(self, password):
+    def check_password(self, password: str):
         return check_password_hash(self.password_hash, password)
+
+    def __repr__(self):
+        return f"<User {self.username} ({self.role})>"

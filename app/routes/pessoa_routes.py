@@ -43,7 +43,7 @@ def criar_pessoa():
         flash("Pessoa cadastrada com sucesso!", "success")
         return redirect(url_for("pessoa.listar_pessoas"))
 
-    return render_template("pessoaForm.html", setores=setores)
+    return render_template("pessoa_form.html", setores=setores)
 
 
 

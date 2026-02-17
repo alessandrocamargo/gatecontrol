@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block content %}
 <div class="container py-5">
   <div class="row justify-content-center">
@@ -17,7 +16,7 @@
             <p class="text-muted mb-0">Acesse sua conta para continuar</p>
           </div>
 
-          <form method="POST" action="{{ url_for('auth.login') }}" novalidate>
+          <form method="POST" action="{{ url_for('auth.login', next=next_url) }}">
             <div class="mb-3">
               <label for="username" class="form-label">Usuário</label>
               <input type="text" class="form-control" id="username" name="username"
@@ -40,29 +39,15 @@
                 <input class="form-check-input" type="checkbox" id="remember" name="remember">
                 <label class="form-check-label" for="remember">Lembrar</label>
               </div>
-
-              <!-- Se você ainda não tem "Esqueci a senha", deixa como texto -->
               <span class="text-muted small">Esqueci a senha (em breve)</span>
             </div>
 
             <button class="btn btn-dark w-100 py-2" type="submit">
               Entrar
             </button>
-
-            <div class="text-center mt-4">
-              <p class="text-muted small mb-0">
-                Sistema interno • Controle de Portaria
-              </p>
-            </div>
           </form>
 
         </div>
-      </div>
-
-      <div class="text-center mt-3">
-        <p class="text-muted small mb-0">
-          © {{ (config.SITE_NAME if config.SITE_NAME else "GateControl") }} • {{ now().year if now else "" }}
-        </p>
       </div>
 
     </div>

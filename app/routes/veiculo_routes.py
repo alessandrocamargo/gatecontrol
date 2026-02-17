@@ -9,7 +9,7 @@ veiculo_bp = Blueprint("veiculo", __name__, url_prefix="/veiculos")
 
 # 🔹 LISTAR VEÍCULOS
 @veiculo_bp.route("/")
-# @login_required
+@login_required
 def listar_veiculos():
     veiculos = Veiculo.query.order_by(Veiculo.id.desc()).all()
     return render_template("veiculo_list.html", veiculos=veiculos)
@@ -17,7 +17,7 @@ def listar_veiculos():
 
 # 🔹 CRIAR VEÍCULO
 @veiculo_bp.route("/criar", methods=["GET", "POST"])
-# @login_required
+@login_required
 def criar_veiculo():
     setores = Setor.query.all()
 
