@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Registrar Saída de Veículo</h2>
+
+    <form method="POST">
+
+        <label>Veículo:</label>
+        <select name="veiculo_id" required>
+            <option value="">Selecione</option>
+            {% for v in veiculos %}
+                <option value="{{ v.id }}">
+                    {{ v.placa }} - {{ v.modelo }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>KM Saída:</label>
+        <input type="number" name="km_saida" required>
+
+        <button type="submit">Registrar Saída</button>
+
+    </form>
+</div>
+{% endblock %}
