@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Retorno de Veículos (em uso)</h2>
+
+    {% if movimentacoes %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Veículo</th>
+                    <th>Setor</th>
+                    <th>Data Saída</th>
+                    <th>KM Saída</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in movimentacoes %}
+                <tr>
+                    <td>{{ m.id }}</td>
+                    <td>{{ m.veiculo.placa }} - {{ m.veiculo.modelo }}</td>
+                    <td>{{ m.veiculo.setor.nome }}</td>
+                    <td>{{ m.data_saida }}</td>
+                    <td>{{ m.km_saida }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm"
+                           href="{{ url_for('movimentacao.registrar_retorno', id=m.id) }}">
+                            Registrar Retorno
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhum veículo em uso no momento.</p>
+    {% endif %}
+</div>
+{% endblock %}

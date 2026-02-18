@@ -1,19 +1,114 @@
-{% extends "base.html"%}
-{% block title %}GateControl - Home{% endblock%}
+{% extends "base.html" %}
+
 {% block content %}
-    <h2>Bem-vindo, {{ user.username }} 👋</h2>
+<div class="container">
 
-    <p>Perfil de acesso: <strong>{{ user.role }}</strong></p>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <p style="color: {% if category == 'success' %}green{% else %}red{% endif %};">
-                    {{ message }}
-                </p>
+  <h3 class="mb-3">Bem-vindo, {{ current_user.nome }} 👋</h3>
+
+  <div class="row g-3 mb-4">
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="text-muted">Total de veículos</div>
+          <div class="fs-3 fw-bold">{{ total }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="text-muted">Disponíveis</div>
+          <div class="fs-3 fw-bold">{{ disponiveis }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="text-muted">Em uso</div>
+          <div class="fs-3 fw-bold">{{ em_uso }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-header fw-semibold">
+      Veículos e status
+    </div>
+
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover mb-0 align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Placa</th>
+              <th>Modelo</th>
+              <th>Setor</th>
+              <th>Status</th>
+              <th class="text-end">Ação</th> <!-- ✅ NOVA COLUNA -->
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for v in veiculos %}
+              <tr>
+                <td class="fw-semibold">{{ v.placa }}</td>
+                <td>{{ v.modelo }}</td>
+                <td>{{ v.setor.nome if v.setor else "-" }}</td>
+
+                <td>
+                  {% if v.status == "disponivel" %}
+                    <span class="badge bg-success">Disponível</span>
+                  {% elif v.status == "em_uso" %}
+                    <span class="badge bg-warning text-dark">Em uso</span>
+                  {% else %}
+                    <span class="badge bg-secondary">{{ v.status }}</span>
+                  {% endif %}
+                </td>
+
+                <!-- ✅ BOTÕES DINÂMICOS -->
+                <td class="text-end">
+
+                  {% if v.status == "disponivel" %}
+                    <a class="btn btn-sm btn-primary"
+                       href="{{ url_for('movimentacao.registrar_saida', veiculo_id=v.id) }}">
+                      Registrar Saída
+                    </a>
+
+                  {% elif v.status == "em_uso" %}
+                    {% set mov_id = mov_aberta_por_veiculo.get(v.id) %}
+
+                    {% if mov_id %}
+                      <a class="btn btn-sm btn-outline-success"
+                         href="{{ url_for('movimentacao.registrar_retorno', id=mov_id) }}">
+                        Registrar Retorno
+                      </a>
+                    {% else %}
+                      <span class="text-muted small">
+                        Movimentação não encontrada
+                      </span>
+                    {% endif %}
+                  {% endif %}
+
+                </td>
+
+              </tr>
+            {% else %}
+              <tr>
+                <td colspan="5" class="text-center py-4 text-muted">
+                  Nenhum veículo cadastrado ainda.
+                </td>
+              </tr>
             {% endfor %}
-        {% endif %}
-    {% endwith %}
-    <hr>
+          </tbody>
 
-    <a href="{{ url_for('auth.logout') }}">Sair</a>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
 {% endblock %}

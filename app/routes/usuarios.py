@@ -9,7 +9,7 @@ user_bp = Blueprint("user", __name__, url_prefix="/usuarios")
 
 
 @user_bp.route("/novo", methods=["GET", "POST"])
-@admin_required
+
 def novo_usuario():
 
     if request.method == "POST":

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Registrar Retorno</h2>
+
+    <div class="mb-3">
+        <strong>Veículo:</strong> {{ mov.veiculo.placa }} - {{ mov.veiculo.modelo }}<br>
+        <strong>Setor:</strong> {{ mov.veiculo.setor.nome }}<br>
+        <strong>KM Saída:</strong> {{ mov.km_saida }}<br>
+        <strong>Data Saída:</strong> {{ mov.data_saida }}
+    </div>
+
+    <form method="POST">
+        <label>KM Retorno:</label>
+        <input type="number" name="km_retorno" class="form-control" required>
+
+        <button type="submit" class="btn btn-success mt-3">Finalizar</button>
+        <a href="{{ url_for('movimentacao.listar_retorno') }}" class="btn btn-secondary mt-3">Voltar</a>
+    </form>
+</div>
+{% endblock %}
