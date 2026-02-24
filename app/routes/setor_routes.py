@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required
 from app.extensions import db
 from app.models.setor import Setor
-from app.utils.decorators import admin_required
+from app.auth.decorators import admin_required
 
 setor_bp = Blueprint("setor", __name__, url_prefix="/setores")
 

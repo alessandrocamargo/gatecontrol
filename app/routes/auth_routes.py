@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from flask_login import login_user, logout_user
 from app.models.user import User
 from app.extensions import db
-from app.utils.decorators import admin_required
+from app.auth.decorators import admin_required
 
 auth_bp = Blueprint("auth", __name__)
 

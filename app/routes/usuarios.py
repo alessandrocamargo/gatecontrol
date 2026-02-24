@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 
 from app.extensions import db
 from app.models.user import User
-from app.utils.decorators import admin_required
+from app.auth.decorators import admin_required
 
 # Nome do blueprint = user
 user_bp = Blueprint("user", __name__, url_prefix="/usuarios")
