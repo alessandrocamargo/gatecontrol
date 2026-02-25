@@ -1,5 +1,5 @@
 from datetime import datetime
-from .. import db
+from app.extensions import db
 
 class MovimentacaoVeiculo(db.Model):
     __tablename__ = "movimentacoes_veiculo"

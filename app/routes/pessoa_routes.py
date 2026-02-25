@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, render_template, flash, redirect, url_for
-from app.auth import db
+from app import db
 from app.models.pessoa import Pessoa
 from app.models.setor import Setor
 from flask_login import login_required
