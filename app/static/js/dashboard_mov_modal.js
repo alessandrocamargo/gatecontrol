@@ -44,23 +44,20 @@ document.addEventListener("DOMContentLoaded", () => {
         veiculoIdInput.disabled = false;
       }
 
-      if (tipo === "retorno") {
+      if (tipo === "retorno"){
         modalTitle.textContent = "Registrar retorno";
-        kmLabel.textContent = "KM de retorno";
-        hint.textContent = "Informe a KM no momento do retorno.";
+        kmLabel.textContent = "Km de retorno";
+        hint.textContent = "Informe a quilometragem de retorno.";
         submitBtn.textContent = "Registrar retorno";
+
         submitBtn.classList.remove("btn-primary");
         submitBtn.classList.add("btn-warning");
 
-        const movId = btn.dataset.movId;
-        const template = btn.dataset.actionTemplate; // .../retorno/0
-        form.action = template.replace(/0$/, movId);
+        //usar URL direta
+        form.action = btn.dataset.actionUrl;
 
-        // backend espera km_retorno
         setKmFieldName("km_retorno");
 
-        // retorno não precisa enviar veiculo_id (vai pela URL), mas não atrapalha.
-        // Se quiser, pode desabilitar:
         veiculoIdInput.disabled = true;
       }
     });

@@ -75,7 +75,7 @@
                       data-tipo="saida"
                       data-veiculo-id="{{ v.id }}"
                       data-placa="{{ v.placa }}"
-                      data-action-url="{{ url_for('movimentacao.registrar_saida') }}"
+                      data-action-url="{{ url_for('movimentacao.registrar_saida_route') }}"
                     >
                       Registrar saída
                     </button>
@@ -92,7 +92,7 @@
                         data-veiculo-id="{{ v.id }}"
                         data-placa="{{ v.placa }}"
                         data-mov-id="{{ mov_id }}"
-                        data-action-template="{{ url_for('movimentacao.registrar_retorno', id=0) }}"
+                        data-action-url="{{ url_for('movimentacao.registrar_retorno_route', id=mov_id) }}"
                       >
                         Registrar retorno
                       </button>
