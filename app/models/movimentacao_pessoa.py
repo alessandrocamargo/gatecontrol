@@ -8,14 +8,14 @@ STATUS_SAIU = "saiu"
 class MovimentacaoPessoa(db.Model):
     __tablename__ = "movimentacoes_pessoa"
 
-    
-    pessoa_id = db.Column(db.Interger, db.ForeignKey("pessoa.id"), nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    pessoa_id = db.Column(db.Integer, db.ForeignKey("pessoa.id"), nullable=False)
 
-    operador_entrada_id = db.Column(db.Interger, db.ForeignKey("user.id"), nullable=False)
-    operador_saida_id = db.Column(db.Interger, db.ForeignKey("user.id"), nullable=False)
+    operador_entrada_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    operador_saida_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
     data_entrada = db.Column(db.DateTime, nullable= False, default= datetime.utcnow)
-    data_saida = db.Column(db.DataTime, nullable= False, default= datetime.utcnow)
+    data_saida = db.Column(db.DateTime, nullable= False, default= datetime.utcnow)
 
     status = db.Column(db.String(20), nullable= False,default= STATUS_DENTRO)
 

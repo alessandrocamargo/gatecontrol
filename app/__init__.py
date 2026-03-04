@@ -68,5 +68,8 @@ def create_app():
     from app.routes.movimentacao_routes import mov_bp
     app.register_blueprint(mov_bp)
 
+    from app.routes.movimentacao_pessoa_routes import pessoa_mov_bp
+    app.register_blueprint(pessoa_mov_bp)
+
 
     return app
