@@ -64,3 +64,21 @@ def listar_pessoas():
 @pessoa_bp.route("/pessoa/form", methods=["GET"])
 def form_pessoa():
     return render_template("pessoaForm.html")
+
+# =========================
+# BUSCAR PESSOA
+# =========================
+
+@pessoa_bp.route("/buscar/<documento>")
+@login_required
+def buscar_pessoa(documento):
+    pessoa = Pessoa.query.filter_by(documento=documento).first()
+
+    if not pessoa:
+        return jsonify({"existe":False})
+    return jsonify({
+        "existe":True,
+        "nome": pessoa.nome,
+        "tipo": pessoa.tipo,
+        "setor_id": pessoa.setor_id
+    })

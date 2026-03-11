@@ -213,16 +213,16 @@
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            <label class="form-label">Nome:</label>
-            <input type="text" name="nome" class="form-control" required>
+            <label class="form-label">Documento:</label>
+            <input type="text" name="documento" id="documento" class="form-control" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Documento:</label>
-            <input type="text" name="documento" class="form-control" required>
+            <label class="form-label">Nome:</label>
+            <input type="text" name="nome" id="nome" class="form-control" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Tipo:</label>
-            <select name="tipo" class="form-select">
+            <select name="tipo" id="tipo" class="form-select">
               <option value="visitante">Visitante</option>
               <option value="prestador">Prestador de Serviço</option>
               <option value="transportadora">Transportadora</option>
@@ -230,7 +230,7 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Setor:</label>
-            <input type="text" name="setor" class="form-control" required>
+            <input type="text" id="setor" name="setor" class="form-control" required>
           </div>
 
           <div class="modal-footer">
@@ -245,4 +245,5 @@
  </div>
 
 <script src="{{ url_for('static', filename='js/dashboard_mov_modal.js') }}"></script>
+<script src="{{ url_for('static', filename='js/buscarPessoa.js') }}"></script>
 {% endblock %}
