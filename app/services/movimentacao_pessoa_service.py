@@ -17,7 +17,7 @@ def registrar_entrada_pessoa(*, pessoa_id:int, operador_id: int) -> Movimentacao
     movimentacao_aberta = MovimentacaoPessoa.query.filter_by(
         pessoa_id = pessoa.id,
         status = STATUS_DENTRO
-    ).first
+    ).first()
 
     if movimentacao_aberta:
         raise RegraNegocioError("Está pessoa já entrou")

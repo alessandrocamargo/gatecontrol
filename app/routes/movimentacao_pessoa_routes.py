@@ -70,3 +70,39 @@ def registrar_saida(id):
     except RegraNegocioError as e:
         flash(str(e), "warning")
     return redirect(url_for("main.home"))
+
+# =================================
+# MOSTRAR PESSOA
+# =================================
+@pessoa_mov_bp.route("/dentro")
+@login_required
+def listar_dentro():
+    pessoas_dentro = MovimentacaoPessoa.query.filter_by(
+        status = STATUS_DENTRO
+    ).order_by(MovimentacaoPessoa.data_entrada.desc()).all()
+
+    print(pessoas_dentro)
+
+    return render_template("pessoas_dentro.html",movimentacoes=pessoas_dentro)
+
+# =================================
+# TESTE API
+# =================================
+
+@pessoa_mov_bp.route("/api/dentro")
+def api_pessoas_dentro():
+
+    movs = MovimentacaoPessoa.query.filter_by(status=STATUS_DENTRO).all()
+
+    return {
+        "pessoas_dentro": [
+            {
+                "id": m.id,
+                "nome": m.pessoa.nome,
+                "documento": m.pessoa.documento,
+                "entrada": m.data_entrada
+            }
+            for m in movs
+        ]
+    }
+
