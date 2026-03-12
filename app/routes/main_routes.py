@@ -25,6 +25,21 @@ def home():
     disponiveis = sum(1 for v in veiculos if v.status == STATUS_DISPONIVEL)
     em_uso = sum(1 for v in veiculos if v.status == STATUS_EM_USO)
 
+    visitantes = [
+        m for m in pessoas_dentro
+        if m.pessoa.tipo == "visitante"
+    ]
+
+    prestadores = [
+        m for m in pessoas_dentro
+        if m.pessoa.tipo == "prestador de serviço"
+    ]
+
+    transportadoras = [
+        m for m in pessoas_dentro
+        if m.pessoa.tipo == "transportadora"
+    ]
+
     return render_template(
         "home.html",
         user=current_user,   # <-- necessário se no html está {{ user.username }}
@@ -36,5 +51,8 @@ def home():
         STATUS_DISPONIVEL=STATUS_DISPONIVEL,
         STATUS_EM_USO=STATUS_EM_USO,
         pessoas_dentro = pessoas_dentro,
-        setores = setor
+        setores = setor,
+        visitantes = visitantes,
+        prestadores = prestadores,
+        transportadoras = transportadoras
     )

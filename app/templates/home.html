@@ -183,7 +183,17 @@
           <tr>
             <td>{{ mov.pessoa.nome }}</td>
             <td class="doc" data-mask="doc">{{ mov.pessoa.documento }}</td>
-            <td>{{ mov.pessoa.tipo }}</td>
+           <td>
+            {% if mov.pessoa.tipo == "visitante" %}
+              <span class="badge bg-primary">Visitante</span>
+            {% elif mov.pessoa.tipo == "prestador" %}
+              <span class="badge bg-warning text-dark">Prestador</span>
+            {% elif mov.pessoa.tipo == "transportadora" %}
+              <span class="badge bg-info text-dark">Transportadora</span>
+            {% else %}
+              <span class="badge bg-secondary">{{ mov.pessoa.tipo }}</span>
+            {% endif %}
+          </td>
             <td>{{ mov.data_entrada | datetime }}</td>
             <td class="tempo-dentro" data-entrada="{{ mov.data_entrada.isoformat() }}"> {{ mov.data_entrada | tempo_dentro }}</td>
             <td class="text-end">
