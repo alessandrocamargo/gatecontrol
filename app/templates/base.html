@@ -30,29 +30,6 @@
               <a class="nav-link" href="{{ url_for('main.home') }}">Início</a>
             </li>
 
-            <!-- OPERADOR
-            {% if current_user.role in ['operador', 'admin'] %}
-              <li class="nav-item">
-                {% if has_endpoint('movimentacao.registrar_saida') %}
-                  <a class="nav-link" href="{{ url_for('movimentacao.registrar_saida') }}">Registrar Saída</a>
-                {% else %}
-                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
-                    Registrar Saída <span class="badge bg-secondary ms-1">Em breve</span>
-                  </a>
-                {% endif %}
-              </li>
-
-              <li class="nav-item">
-                {% if has_endpoint('movimentacao.listar_retorno') %}
-                  <a class="nav-link" href="{{ url_for('movimentacao.listar_retorno') }}">Registrar Retorno</a>
-                {% else %}
-                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
-                    Registrar Retorno <span class="badge bg-secondary ms-1">Em breve</span>
-                  </a>
-                {% endif %}
-              </li>
-            {% endif %} -->
-
             <!-- CADASTRO -->
             {% if current_user.role == 'cadastro' %}
               <li class="nav-item dropdown">
