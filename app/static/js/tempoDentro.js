@@ -6,14 +6,20 @@ function calcularTempo(dataEntrada) {
 
     const minutos = Math.floor(diff / 60)
 
-    if(minutos > 60) {
-        return `${minutos} min`
+    if(minutos < 60) {
+        return {
+            texto: `${minutos} min`,
+            minutos: minutos
+        }
     }
 
     const horas = Math.floor(minutos / 60)
     const minutosRest = minutos % 60
 
-    return `${horas}h ${minutos}m`
+    return {
+        texto: `${horas}h ${minutosRest}m`,
+        minutos: minutos
+    }
 }
 
 function atualizarTempos(){
@@ -25,7 +31,7 @@ function atualizarTempos(){
 
         const tempo = calcularTempo(entrada)
 
-        el.textContent = "⏱" + calcularTempo(entrada)
+        el.textContent = tempo.texto
 
         el.classList.remove("text-sucess", "text-warning", "text-danger")
         
