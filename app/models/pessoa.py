@@ -12,8 +12,8 @@ class Pessoa(db.Model):
 
     @validates("tipo")
     def validar_tipo(self, key, tipo):
-        if tipo not in ["visitante", "prestador"]:
-            raise ValueError("Funcionários não podem ser cadastrados na portaria.")
+        if tipo not in ["visitante", "prestador","transportadora"]:
+            raise ValueError("Tipo de pessoa inválido")
         return tipo
 
     setor_id = db.Column(db.Integer, db.ForeignKey("setores.id"), nullable=False)
