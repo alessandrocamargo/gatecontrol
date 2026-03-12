@@ -1,5 +1,6 @@
 from flask import Flask, current_app, redirect, url_for, flash, request
 from flask_migrate import Migrate
+from app.utils.filters import format_datetime, tempo_dentro
 
 from app.extensions import db, login_manager
 
@@ -24,6 +25,12 @@ def create_app():
 
     # SEMPRE redirecionar para login (evita a página padrão "Please log in...")
     from flask import redirect, request, flash
+
+    #formatação de data e hora
+    app.jinja_env.filters["datetime"] = format_datetime
+
+    #mostrar tempo dentro
+    app.jinja_env.filters["tempo_dentro"] = tempo_dentro
 
     @login_manager.unauthorized_handler
     def unauthorized():

@@ -175,16 +175,17 @@
           <th>Documento:</th>
           <th>Tipo:</th>
           <th>Entrada:</th>
-          <th></th>
+          <th>Tempo Dentro</th>
         </tr>
       </thead>
       <tbody>
         {% for mov in pessoas_dentro %}
           <tr>
             <td>{{ mov.pessoa.nome }}</td>
-            <td>{{ mov.pessoa.documento }}</td>
+            <td class="doc" data-mask="doc">{{ mov.pessoa.documento }}</td>
             <td>{{ mov.pessoa.tipo }}</td>
-            <td>{{ mov.data_entrada }}</td>
+            <td>{{ mov.data_entrada | datetime }}</td>
+            <td class="tempo-dentro" data-entrada="{{ mov.data_entrada.isoformat() }}"> ⏱ {{ mov.data_entrada | tempo_dentro }}</td>
             <td class="text-end">
               <form action="{{ url_for('movimentacao_pessoa.registrar_saida', id = mov.id)}}" method="post">
                 <button class="btn btn-sm btn-danger">Registrar Saída</button>
@@ -214,7 +215,7 @@
         <div class="modal-body">
           <div class="mb-3">
             <label class="form-label">Documento:</label>
-            <input type="text" name="documento" id="documento" class="form-control" required>
+            <input type="text" name="documento" id="documento" inputmode="numeric" pattern="[0-9]*" class="form-control" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Nome:</label>
@@ -223,6 +224,7 @@
           <div class="mb-3">
             <label class="form-label">Tipo:</label>
             <select name="tipo" id="tipo" class="form-select">
+              <option value=""></option>
               <option value="visitante">Visitante</option>
               <option value="prestador">Prestador de Serviço</option>
               <option value="transportadora">Transportadora</option>
@@ -230,7 +232,13 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Setor:</label>
-            <input type="text" id="setor" name="setor" class="form-control" required>
+            <select name="setor_id" class="form-select">
+              {% for setor in setores %}
+                <option value="{{ setor.id }}">
+                  {{ setor.nome }}
+                </option>
+              {% endfor %}
+            </select>
           </div>
 
           <div class="modal-footer">
@@ -246,4 +254,6 @@
 
 <script src="{{ url_for('static', filename='js/dashboard_mov_modal.js') }}"></script>
 <script src="{{ url_for('static', filename='js/buscarPessoa.js') }}"></script>
+<script src="{{ url_for('static', filename='js/mascaraDocumento.js') }}"></script>
+<script src="{{ url_for('static', filename='js/tempoDentro.js') }}"></script>
 {% endblock %}

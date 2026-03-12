@@ -14,7 +14,7 @@ class MovimentacaoPessoa(db.Model):
     operador_entrada_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     operador_saida_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=True)
 
-    data_entrada = db.Column(db.DateTime, nullable= False, default= datetime.utcnow)
+    data_entrada = db.Column(db.DateTime, nullable= False, default= datetime.now)
     data_saida = db.Column(db.DateTime, nullable= True)
 
     status = db.Column(db.String(20), nullable= False,default= STATUS_DENTRO)

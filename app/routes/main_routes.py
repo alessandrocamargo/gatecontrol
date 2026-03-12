@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app.models.veiculo import Veiculo, STATUS_DISPONIVEL, STATUS_EM_USO
 from app.models.movimentacao_veiculo import MovimentacaoVeiculo
 from app.models.movimentacao_pessoa import MovimentacaoPessoa,STATUS_DENTRO
+from app.models.setor import Setor
 
 main_bp = Blueprint("main", __name__)
 
@@ -16,6 +17,8 @@ def home():
     mov_aberta_por_veiculo = {m.veiculo_id: m.id for m in abertas}
 
     pessoas_dentro = MovimentacaoPessoa.query.filter_by(status = STATUS_DENTRO).order_by(MovimentacaoPessoa.data_entrada.desc()).all()
+
+    setor = Setor.query.order_by(Setor.nome.asc()).all()
 
     # Dashboard
     total = len(veiculos)
@@ -32,5 +35,6 @@ def home():
         mov_aberta_por_veiculo=mov_aberta_por_veiculo,
         STATUS_DISPONIVEL=STATUS_DISPONIVEL,
         STATUS_EM_USO=STATUS_EM_USO,
-        pessoas_dentro = pessoas_dentro
+        pessoas_dentro = pessoas_dentro,
+        setores = setor
     )

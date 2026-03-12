@@ -52,7 +52,7 @@ def registrar_retorno_service(*, mov_id: int, km_retorno: int, operador_id: int)
         raise RegraNegocioError("KM de retorno não pode ser menor que a KM de saída.")
 
     mov.km_retorno = km_retorno
-    mov.data_retorno = datetime.utcnow()
+    mov.data_retorno = datetime.now()
     mov.operador_retorno_id = operador_id
     mov.status = "finalizado"
 

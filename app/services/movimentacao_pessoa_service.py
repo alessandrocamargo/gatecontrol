@@ -25,7 +25,7 @@ def registrar_entrada_pessoa(*, pessoa_id:int, operador_id: int) -> Movimentacao
     mov = MovimentacaoPessoa(
         pessoa_id = pessoa.id,
         operador_entrada_id = operador_id,
-        data_entrada = datetime.utcnow(),
+        data_entrada = datetime.now(),
         status = STATUS_DENTRO
     )
 
@@ -43,7 +43,7 @@ def registrar_saida_pessoa(*, mov_id:int, operador_id:int) -> MovimentacaoPessoa
     if mov.status != STATUS_DENTRO:
         raise RegraNegocioError("Esse visitante / prestador já saiu.")
     
-    mov.data_saida = datetime.utcnow()
+    mov.data_saida = datetime.now()
     mov.operador_saida_id = operador_id
     mov.status = STATUS_SAIU
 

@@ -15,7 +15,7 @@ class MovimentacaoVeiculo(db.Model):
     operador_retorno_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     operador_retorno = db.relationship("User", foreign_keys=[operador_retorno_id])
 
-    data_saida = db.Column(db.DateTime, default=datetime.utcnow)
+    data_saida = db.Column(db.DateTime, default=datetime.now)
     km_saida = db.Column(db.Integer, nullable=False)
 
     data_retorno = db.Column(db.DateTime)
